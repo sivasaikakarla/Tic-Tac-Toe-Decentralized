@@ -5,6 +5,7 @@ import './App.css'
 import JoinGame from './components/JoinGame'
 import PlayGame from './components/PlayGame'
 import NewGame from './components/NewGame'
+import WinnerList from './components/WinnerList'
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   useEffect(()=>{
     const template=async()=>{
    
-      const contractAddres="0x3F660395D7046D3a4f585F28C31F4dc263E6c379";
+      const contractAddres="0x9970B533aDD61921F7f3D9C6f5AE6eCef0AAE8D2";
       const contractABI=abi.abi;
       //Metamask part
       //1. In order do transactions on goerli testnet
@@ -28,7 +29,7 @@ function App() {
         const account = await ethereum.request({
           method:"eth_requestAccounts"
         })
- 
+
         window.ethereum.on("accountsChanged",()=>{
          window.location.reload()
         })
@@ -57,6 +58,7 @@ function App() {
       <JoinGame state={state} acc={account}></JoinGame>
       <NewGame state={state}></NewGame>
       <PlayGame state={state} acc={account}></PlayGame>
+      <WinnerList state={state} acc={account}></WinnerList>
     </div>
   )
 }

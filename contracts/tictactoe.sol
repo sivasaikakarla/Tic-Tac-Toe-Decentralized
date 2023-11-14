@@ -12,6 +12,8 @@ contract TicTacToe {
     
     uint8[3][3] public board;
 
+    address[] public winners;
+
     event MoveMade(address indexed player, uint8 row, uint8 col);
     event GameOver(address indexed winner, uint amountWon);
     event NewGameStarted();
@@ -67,6 +69,7 @@ contract TicTacToe {
         if (checkRow(row, player) || checkColumn(col, player) || (row == col && checkDiagonal(1, player)) || (row + col == 2 && checkDiagonal(-1, player)) || turn == 9) {
             winner = (turn == 9) ? address(1) : msg.sender;
             if (winner != address(0)) {
+                winners.push(winner);
                 // Transfer the stake to the winner
                 (bool success, ) = payable(winner).call{value: address(this).balance}("");
                 require(success, "Transfer failed.");
